@@ -1,0 +1,93 @@
+/* style.css - basic styles for the project
+
+*/
+
+pre {
+	color: navy;
+}
+
+#top-nav {
+	color: navy;
+}
+
+#top-nav ul li {
+    display: inline;
+}
+
+#left-nav {
+	float: left;
+	width: 200px;
+}
+
+article {
+	color: navy;
+	margin-left: 240px;
+	display: block;
+}
+
+header h1 {
+	font-size: 16pt;
+	color: navy;
+	font-weight: normal;
+}
+
+.templatebox {
+	width: 500px;
+	white-space: pre-wrap;
+}
+
+#LHS_title {
+	float: left;
+}
+
+#RHS_title {
+	float: right;
+}
+
+#Top_title {
+	text-align: center;
+}
+
+#buttons {
+	text-align: center;
+}
+
+fieldset {
+	font-size: 8pt;
+	border: 0px;
+}
+
+fieldset legend {
+  font-size: 8pt;
+}
+
+legend {
+	float: left;
+	font-family: monospace;
+	height: 50px;
+	width: 80px;
+}
+
+footer {
+	clear: both;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+}
+
+#Indication {
+	color: blue;
+}
+#Technique {
+	color: #1E8C93;
+}
+#Comparison {
+	color: #9A09BA;
+}
+#Findings {
+	color: #F78145;
+}
+#Impression {
+	color: red;
+}
