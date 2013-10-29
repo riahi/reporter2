@@ -55,7 +55,7 @@
 				<tr>
 					<td>{{ $row->id }}</td>
 					<td><a href="{{ url('review', $row->id) }}">{{ $row->title }}</a></td>
-					<td>{{ $row->attending }}</td>
+					<td>{{ $row->author }}</td>
 					<td>{{ $row->template_status }}</td>
 				</tr>
 			@endforeach

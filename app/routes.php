@@ -1,9 +1,9 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
+|------------------------------------------------------------------------------
 | Application Routes
-|--------------------------------------------------------------------------
+|------------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
 | It's a breeze. Simply tell Laravel the URIs it should respond to
@@ -11,10 +11,38 @@
 |
 */
 
+/*
 Route::get('/', function()
 {
 	return View::make('hello');
 });
+*/
+
+/*Route::any('/', [
+	"as" => "user/login",
+	"uses" => "UserController@loginAction"
+]);
+*/
+
+Route::group(["before" => "guest"], function() {
+	Route::any('/', [
+		"as" => "user/login",
+		"uses" => "UserController@loginAction"
+	]);
+});
+
+Route::group(["before" => "auth"], function () {
+	Route::any('/profile', [
+		"as" => "user/profile",
+		"uses" => "UserController@profileAction"
+	]);
+
+	Route::any("/logout", [
+		"as" => "user/logout",
+		"uses" => "UserController@logoutAction"
+	]);
+});
+
 
 Route::post('compare', function() 
 {
@@ -41,12 +69,17 @@ Route::controller('worklist', 'WorklistController');
 
 Route::get('first', function () 
 {
-	return var_dump(Session::get('worklist'));
+	$sql = Template::select('attending')
+		->distinct()
+		->get()
+		->toArray();
+	return var_dump($sql);
 });
 
 Route::get('second', function() 
 {
-	return var_dump(Session::get('worklist')->get(12));
+	return View::make('user.login');
+
 });
 
 ?>

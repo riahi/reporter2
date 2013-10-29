@@ -21,7 +21,7 @@
 <body>
 	<header>
 		<h1>Viewing <strong>{{ $template->title }}</strong> by 
-			<em>{{ $template->attending }}</em></h1>
+			<em>{{ $template->author }}</em></h1>
 		<nav id="top-nav">
 			<ul>
 				<li><a href="{{ url('search') }}">Search</a></li>
