@@ -69,17 +69,31 @@ Route::controller('worklist', 'WorklistController');
 
 Route::get('first', function () 
 {
-	$sql = Template::select('attending')
-		->distinct()
-		->get()
-		->toArray();
-	return var_dump($sql);
+	// pull the worklist and return array
+	$w = User::find(1)
+		->templates()
+		->get();
+
+	return var_dump($w->isEmpty());
 });
 
 Route::get('second', function() 
 {
-	return View::make('user.login');
+	$u = User::find(1);
+	$t = Template::find(5);
 
+	$u->templates()->save($t);
+
+	return var_dump($u);
+
+});
+
+Route::get('third', function() {
+	$user = Auth::user();
+	$next = $user->templates()->first();
+
+	//return var_dump($next->id);
+	return Redirect::to(url('review', $next->id));
 });
 
 ?>

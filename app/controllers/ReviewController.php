@@ -5,25 +5,19 @@
 class ReviewController extends BaseController {
 
 	public function getIndex() {
+		// Get current user
+		$user = Auth::user();
 
-		// Check for worklist
-		if (Session::has('worklist')) {
-			// Check if empty
-			if (Session::get('worklist')->isEmpty()) {
-				// Display worklist is empty.  
-				// Please add some templates to worklist to review
-			}
-			else {
-				// Worklist exists and has templates to go over
-				// Shift off first template and redirects
-				$next = Session::get('worklist')->shift();
+		// Check if user has an existing worklist
+		if($user->hasWorklist()) {
+			// Get next element
+			$next = $user->templates()->first();
 
-				//return Redirect::action('ReviewController@showIndex', $next->id);
-				return Redirect::to(url('review', $next->id));
-			}
+			return Redirect::to(url('review', $next->id));
+
 		}
 		else {
-			// No worklist; act as if empty
+			return Redirect::to(url('worklist'));
 		}
 	}
 
@@ -51,22 +45,22 @@ class ReviewController extends BaseController {
 		$template->save();
 
 		// and Next
-		// Check for worklist
-		if (Session::has('worklist')) {
-			// Check if empty
-			if(Session::get('worklist')->isEmpty()) {
-				// return to empty worklist page
-				return Redirect::to('worklist');
-			}
-			else {
-				// Shift the first element from worklist.
-				$next = Session::get('worklist')->shift();
+		// Get current user
+		$user = Auth::user();
+		// Dissociate this template from pivottable
+		$user->templates()->detach($template);
 
-				return Redirect::action('ReviewController@showIndex', $next->id);
-			}
+		// Check if user has an existing worklist
+		if($user->hasWorklist()) {
+			// Get next element
+			$next = $user->templates()->first();
+
+			return Redirect::to(url('review', $next->id));
+
 		}
 		else {
-			return Redirect::to('worklist');
+			return Redirect::to(url('worklist'));
+			//return Redirect::action('ReviewController@showIndex', $next->id);
 		}
 	}
 
