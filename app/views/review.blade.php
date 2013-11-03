@@ -27,6 +27,9 @@
 			<ul>
 				<li><a href="{{ url('search') }}">Search</a></li>
 				<li><a href="{{ url('worklist') }}">Worklist</a></li>
+				@if (AUth::check())
+					<li><a href="{{ url('logout') }}">Logout</a></li>
+				@endif
 			</ul>
 		</nav>
 	</header>
@@ -39,6 +42,9 @@
 			{{ Form::fieldStatus('findings_status', $template->findings_status) }}
 			{{ Form::fieldStatus('impression_status', $template->impression_status) }}
 			{{ Form::fieldStatus('template_status', $template->template_status) }}
+			@if(Auth::user()->user_level == 1)
+			{{ Form::fieldStatus('template_final_status', $template->template_final_status) }}
+			@endif
 			{{ Form::submit('Save and Next') }}
 		{{ Form::close() }}
 	</nav>
@@ -47,9 +53,5 @@
 		<pre class="brush: rads; gutter: false; white-space: pre-wrap; 
 			 width: 500px;">{{{ $template->template }}}</pre>
 	</article>
-
-	<footer>
-		Footer
-	</footer>
 </body>
 </html>

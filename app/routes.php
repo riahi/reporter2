@@ -24,13 +24,22 @@ Route::get('/', function()
 ]);
 */
 
-Route::group(["before" => "guest"], function() {
+Route::group(["before" => "guest"], function() 
+{
 	Route::any('/', [
 		"as" => "user/login",
 		"uses" => "UserController@loginAction"
 	]);
 });
 
+/*
+|------------------------------------------------------------------------------
+| Guest Routes
+|------------------------------------------------------------------------------
+| 
+|  Redirect everything to login 
+|
+*/
 Route::group(["before" => "auth"], function () {
 	Route::any('/profile', [
 		"as" => "user/profile",
@@ -41,6 +50,16 @@ Route::group(["before" => "auth"], function () {
 		"as" => "user/logout",
 		"uses" => "UserController@logoutAction"
 	]);
+
+	Route::controller('search', 'SearchController');
+
+	Route::get('review', 'ReviewController@getIndex');
+	Route::get('review/{id}', 'ReviewController@showIndex');
+	Route::put('review/{id}', 'ReviewController@putIndex');
+	
+	Route::resource('template', 'TemplateController');
+
+	Route::controller('worklist', 'WorklistController');
 });
 
 
@@ -50,22 +69,6 @@ Route::post('compare', function()
 
 	return var_dump($data);
 });
-
-Route::get('review', 'ReviewController@getIndex');
-Route::get('review/{id}', 'ReviewController@showIndex');
-Route::put('review/{id}', 'ReviewController@putIndex');
-//Route::get('review/{id?}', 'ReviewController@showTemplate');
-
-//Route::put('review/{id}', 'ReviewController@putIndex');
-
-Route::controller('search', 'SearchController');
-
-Route::resource('template', 'TemplateController');
-
-Route::controller('worklist', 'WorklistController');
-
-
-
 
 Route::get('first', function () 
 {

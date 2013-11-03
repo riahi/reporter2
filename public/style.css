@@ -1,81 +1,107 @@
 /* style.css - basic styles for the project
 
 */
-
-pre {
-	color: navy;
+a {
+    color : #ef7c61;
 }
-
-#top-nav {
-	color: navy;
-}
-
-#top-nav ul li {
-    display: inline;
-}
-
-#left-nav {
-	float: left;
-	width: 200px;
-}
-
 article {
 	color: navy;
 	margin-left: 240px;
 	display: block;
 }
-
-header h1 {
-	font-size: 16pt;
+body {
+    margin      : 0;
+    padding     : 0 0 50px 0;
+    font-family : "Helvetica", "Arial";
+    font-size   : 14px;
+    line-height : 18px;
+    cursor      : default;
+}
+footer
+{
+    background  : #000;
+    line-height : 50px;
+    height      : 50px;
+    width       : 100%;
+    color       : #ffffff;
+    position : absolute;
+    bottom   : 0;
+}
+pre {
 	color: navy;
+}
+header
+{
+    background  : #000;
+    line-height : 50px;
+    height      : 50px;
+    width       : 100%;
+    color       : #ffffff;
+}
+header a
+{
+    display : inline-block;
+}
+header h1 {
+	margin: 0;
+	font-size: 16pt;
+	color: white;
 	font-weight: normal;
+	float: left;
+	display: inline-block;
 }
 
+label, input, .error
+{
+    margin : 5px 0;
+}
+.error
+{
+    color : #ef7c61;
+}
+
+/* ---------------------------------------------------------------------------
+	Classes
+*/ 
+#buttons {
+	text-align: center;
+}
+#left-nav {
+	float: left;
+	width: 200px;
+}
+#LHS_title {
+	float: left;
+}
+#RHS_title {
+	float: right;
+}
+#top-nav {
+	color: navy;
+	line-height: 14px;
+	float: left;
+}
+#top-nav ul li {
+    display: inline;
+}
+#Top_title {
+	text-align: center;
+}
+/* ---------------------------------------------------------------------------
+	Names
+*/ 
+.container {
+    width    : 960px;
+    position : relative;
+    margin   : 0 auto;
+}
 .templatebox {
 	width: 500px;
 	white-space: pre-wrap;
 }
-
-#LHS_title {
-	float: left;
-}
-
-#RHS_title {
-	float: right;
-}
-
-#Top_title {
-	text-align: center;
-}
-
-#buttons {
-	text-align: center;
-}
-
-fieldset {
-	font-size: 8pt;
-	border: 0px;
-}
-
-fieldset legend {
-  font-size: 8pt;
-}
-
-legend {
-	float: left;
-	font-family: monospace;
-	height: 50px;
-	width: 80px;
-}
-
-footer {
-	clear: both;
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	height: 30px;
-}
-
+/* ---------------------------------------------------------------------------
+	Classes for syntax highlighting matching
+*/ 
 #Indication {
 	color: blue;
 }

@@ -41,6 +41,10 @@ class ReviewController extends BaseController {
 		$template->findings_status = Input::get('findings_status');
 		$template->impression_status = Input::get('impression_status');
 		$template->template_status = Input::get('template_status');
+		if(Auth::user()->user_level == 1) 
+		{
+			$template->template_final_status = Input::get('template_final_status');
+		}
 
 		$template->save();
 

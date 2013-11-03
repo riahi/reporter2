@@ -23,15 +23,25 @@ class WorklistController extends BaseController {
 		return View::make('worklist', $data);
 	}
 
-	// Add to worklist
+	// Add to Worklist
 	public function postIndex() {
 		// Get current user
 		$user = Auth::user();
 
-		// Retrieve search results, then use each() method and closure to 
-		//   add the template-user relationship and update pivottable
+		// Find out if we are adding all or just adding selected
+
+		// If just adding selected
+		if(Input::has('add_to_worklist')) {
+			$searchResults = Input::get('add_to_worklist');
+			$searchResults = Template::find($searchResults);
+		}
+		// else adding all
+		else {
 		$searchResults = Session::get('searchResults');
+		}
 		
+		// Use each() method and closure to 
+		//   add the template-user relationship and update pivottable
 		$searchResults->each(function($template) {
 			$user = Auth::user();
 			$user->templates()->save($template);
@@ -41,6 +51,18 @@ class WorklistController extends BaseController {
 		$data['worklist'] = $user->templates()->get();
 		$data['worklistEmpty'] = false;
 		return View::make('worklist', $data);
+	}
+
+	// Add Selected Templates to Worklist
+	public function addSelected() {
+		// Get current user
+		$user = Auth::user();
+
+		// Retrieve selected options, then use each() method and closure to
+		//		add the template-user relationship and update pivottable.
+		$selectedTemplates = Input::all();
+
+		return var_dump($selectedTemplates);
 	}
 
 	// Clear Worklist
