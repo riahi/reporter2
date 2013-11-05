@@ -26,7 +26,7 @@ Route::get('/', function()
 
 Route::group(["before" => "guest"], function() 
 {
-	Route::any('/', [
+	Route::any('login', [
 		"as" => "user/login",
 		"uses" => "UserController@loginAction"
 	]);
@@ -41,7 +41,7 @@ Route::group(["before" => "guest"], function()
 |
 */
 Route::group(["before" => "auth"], function () {
-	Route::any('/profile', [
+	Route::any('profile', [
 		"as" => "user/profile",
 		"uses" => "UserController@profileAction"
 	]);
@@ -60,6 +60,8 @@ Route::group(["before" => "auth"], function () {
 	Route::resource('template', 'TemplateController');
 
 	Route::controller('worklist', 'WorklistController');
+
+	Route::any('/', 'UserController@profileAction');
 });
 
 
