@@ -53,6 +53,9 @@ class ReviewController extends BaseController {
 		$user = Auth::user();
 		// Dissociate this template from pivottable
 		$user->templates()->detach($template);
+		// Increment users # of templates edited
+		$user->templates_edited = $user->templates_edited + 1;
+		$user->save();
 
 		// Check if user has an existing worklist
 		if($user->hasWorklist()) {

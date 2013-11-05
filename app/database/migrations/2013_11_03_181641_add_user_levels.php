@@ -14,7 +14,8 @@ class AddUserLevels extends Migration {
 		Schema::table('users', function($table) 
 		{
 			$table
-				->integer('user_level');
+				->integer('user_level')
+				->default(1);
 		});
 	}
 

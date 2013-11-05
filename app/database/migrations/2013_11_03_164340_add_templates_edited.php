@@ -14,7 +14,8 @@ class AddTemplatesEdited extends Migration {
 		Schema::table('users', function($table) 
 		{
 			$table
-				->integer('templates_edited');
+				->integer('templates_edited')
+				->default(0);
 		});
 	}
 

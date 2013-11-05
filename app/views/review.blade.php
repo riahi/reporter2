@@ -27,6 +27,7 @@
 			<ul>
 				<li><a href="{{ url('search') }}">Search</a></li>
 				<li><a href="{{ url('worklist') }}">Worklist</a></li>
+				<li><a href="{{ url('profile') }}">Profile</a></li>
 				@if (AUth::check())
 					<li><a href="{{ url('logout') }}">Logout</a></li>
 				@endif
