@@ -1,33 +1,15 @@
-<!-- app/views/search.blade.php-->
-
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Search Templates</title>
-
-	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" 
-		charset="utf-8"></script>
-	<link type="text/css" rel="stylesheet" href="{{ asset('style.css') }}" />
-</head>
-
-<body>
-	<header>
-		<h1>BWH Radiology Template Search</h1>
-		<nav id="top-nav">
-			<ul>
-				<li><a href="{{ url('search') }}">Search</a></li>
-				<li><a href="{{ url('worklist') }}">Worklist</a></li>
-			</ul>
-		</nav>
-	</header>
-
+@extends('layout')
+@section('title')
+Search | BWH Radiology Template Reporter
+@stop
+@section('content')
 	<section>
-
-
 		@if ($showResults)
 			<p>{{ $searchResults->count() }} rows returned for search 
 				<em> {{ $titleSearch }}</em>.</p>
+
+			{{-- Begin Add Selected to Worklist Form -----------------------------}}
+			{{ Form::open(array('action' => 'WorklistController@postIndex')) }}
 			<table>
 				<tr>
 					<td>Select</td>
@@ -39,7 +21,7 @@
 				</tr>
 			@foreach ($searchResults as $row)
 				<tr>
-					<td>{{ Form::checkbox('add_to_worklist', $row->id) }}</td>
+					<td>{{ Form::checkbox('add_to_worklist[]', $row->id) }}</td>
 					<td><a href="{{ url('template', $row->id) }}">{{ $row->title }}</a></td>
 					<td>{{ $row->author }}</td>
 					<td>{{ $row->author_training }}</td>
@@ -48,16 +30,22 @@
 				</tr>
 			@endforeach
 			</table>
+			{{ Form::submit('Add selected to Worklist') }}
+			{{ Form::close() }}
 
-		{{-- Begin Worklist Form --------------------------------------}}
+		{{-- Begin Add All to Worklist Form --------------------------------------}}
+		<p>
 			{{ Form::open(array('url' => 'worklist')) }}
 			{{ Form::submit('Add all to Worklist') }}
 			{{ Form::close() }}
+		</p>
+
+
 		@endif
 
-		{{-- Begin Search Form --------------------------------------}}
+		{{-- Begin Search Form ---------------------------------------------------}}
 		<p>Search for templates for review.</p>
-		{{ Form::open(array('url' => 'search')) }}
+		<p>{{ Form::open(array('url' => 'search')) }}
 			{{ Form::label('template_title', 'Template Title') }}
 			{{ Form::text('template_title') }} <br />
 			
@@ -87,10 +75,6 @@
 			
 			{{ Form::submit('Search') }}
 		{{ Form::close() }}
+		</p>
 	</section>
-
-	<footer>
-	
-	</footer>
-</body>
-</html>
+@stop

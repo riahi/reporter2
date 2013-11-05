@@ -6,51 +6,69 @@ class WorklistController extends BaseController {
 
 	// Display worklist
 	public function getIndex() {
-		// Check if there is an existing worklist in the Session
-		if (Session::has('worklist'))
-		{
-			// Check if empty
-			if(Session::get('worklist')->isEmpty()) {
-				// tell view to print out empty worklist message
-				$worklistEmpty = true;
-			}
-			else {
-				$worklistEmpty = false;
-				$data['worklist'] = Session::get('worklist');
-			}
+		// Get current user
+		$user = Auth::user();
+
+		// Check if user has an existing worklist
+		if($user->hasWorklist()) {
+			$worklistEmpty = false;
+			$data['worklist'] = $user->templates()->get();
 		}
 		else {
 			$worklistEmpty = true;
 		}
 
 		$data['worklistEmpty'] = $worklistEmpty;
+		//return var_dump($data['worklist']);
 		return View::make('worklist', $data);
 	}
 
-	// Add to worklist
+	// Add to Worklist
 	public function postIndex() {
-		// Check if WL in session
-		if (Session::has('worklist')) {
-			$worklist = Session::get('worklist');
-			// merge in the search results
-			$worklist = $worklist->merge(Session::get('searchResults'));
-			Session::forget('worklist');
-			Session::put('worklist', $worklist);
+		// Get current user
+		$user = Auth::user();
+
+		// Find out if we are adding all or just adding selected
+
+		// If just adding selected
+		if(Input::has('add_to_worklist')) {
+			$searchResults = Input::get('add_to_worklist');
+			$searchResults = Template::find($searchResults);
 		}
+		// else adding all
 		else {
-			$worklist = Session::get('searchResults');
-			Session::put('worklist', $worklist);
+		$searchResults = Session::get('searchResults');
 		}
+		
+		// Use each() method and closure to 
+		//   add the template-user relationship and update pivottable
+		$searchResults->each(function($template) {
+			$user = Auth::user();
+			$user->templates()->save($template);
+		});
 
 		// Pass variables to the view
-		$data['worklist'] = Session::get('worklist');
+		$data['worklist'] = $user->templates()->get();
 		$data['worklistEmpty'] = false;
 		return View::make('worklist', $data);
 	}
 
+	// Add Selected Templates to Worklist
+	public function addSelected() {
+		// Get current user
+		$user = Auth::user();
+
+		// Retrieve selected options, then use each() method and closure to
+		//		add the template-user relationship and update pivottable.
+		$selectedTemplates = Input::all();
+
+		return var_dump($selectedTemplates);
+	}
+
 	// Clear Worklist
 	public function deleteIndex() {
-		Session::forget('worklist');
+		$user = Auth::user();
+		$user->templates()->detach();
 
 		$data['worklistEmpty'] = true;
 		return View::make('worklist', $data);

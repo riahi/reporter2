@@ -1,27 +1,10 @@
+@extends('layout')
+@section('title')
+Worklist | BWH Radiology Template Reporter
+@stop
+@section('content')
+
 {{-- app/views/worklist.blade.php --}}
-
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>View Worklist</title>
-
-	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" 
-		charset="utf-8"></script>
-	<link type="text/css" rel="stylesheet" href="{{ asset('style.css') }}" />
-</head>
-
-<body>
-	<header>
-		<h1>BWH Radiology Template Worklist</h1>
-		<nav id="top-nav">
-			<ul>
-				<li><a href="{{ url('search') }}">Search</a></li>
-				<li><a href="{{ url('worklist') }}">Worklist</a></li>
-			</ul>
-		</nav>
-	</header>
-
 	<nav id="left-nav">
 		<p> {{ Form::open(array('url' => 'worklist', 'method' => 'DELETE')) }}
 				{{ Form::submit('Clear Worklist') }} 
@@ -62,9 +45,4 @@
 		@endif
 		</table>
 	</article>
-
-	<footer>
-		Footer
-	</footer>
-</body>
-</html>
+@stop

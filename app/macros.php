@@ -31,6 +31,8 @@ Form::macro('fieldStatus', function($field, $value) {
 									break;
 		case "template_status": $legend = "Template"; 
 									break;
+		case "template_final_status": $legend = "Final Approval"; 
+									break;
 	}
 
 	$source = 

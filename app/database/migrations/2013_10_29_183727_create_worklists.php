@@ -3,6 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+// Implemented as a pivottable between 'templates' and 'users' tables.  
+
 class CreateWorklists extends Migration {
 
 	/**
@@ -12,11 +14,10 @@ class CreateWorklists extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('worklists', function(Blueprint $table)
+		Schema::create('template_user', function(Blueprint $table)
 		{
 			$table->integer('user_id');
 			$table->integer('template_id');
-			$table->timestamps();
 		});
 	}
 
@@ -27,7 +28,7 @@ class CreateWorklists extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('worklists');
+		Schema::drop('template_user');
 	}
 
 }

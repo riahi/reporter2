@@ -3,23 +3,26 @@
 <!DOCTYPE html>
 <html lang=”en”>
 <head>
+    @section('head')
     <meta charset="UTF-8" />
     <link
         type="text/css"
         rel="stylesheet"
-        href="{{ asset('css/layout.css') }}" />
+        href="{{ asset('style.css') }}" />
+    @show
     <title>
-        Tutorial
+        {{-- Title Code --}}
+        @yield('title')
     </title>
 </head>
 
 <body>
     @include('header')
+
     <div class="content">
         <div class="container">
             @yield('content')
         </div>
     </div>
-    @include('footer')
 </body>
 </html>

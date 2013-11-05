@@ -49,4 +49,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	// Many-to-many relationship with Template (implements worklist)  
+	// Consider renaming getWorklist or something similar
+	public function templates() {
+		return $this->belongstoMany('Template');
+	}
+
+	public function hasWorklist() {
+		$worklist = $this->templates()->get();
+		return !$worklist->isEmpty();
+	}
+
 }

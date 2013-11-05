@@ -1,8 +1,11 @@
 <?php
-// app/database/seeds/UserSeeder.php 
+// app/database/seeds/UserTableSeeder.php 
 
-class UserTableSeeder extends DatabaseSeeder {
-	public function run() {
+class UserTableSeeder extends DatabaseSeeder 
+{
+	public function run() 
+	{
+		Eloquent::unguard();
 		$users = [
 			[
 				"username" => "sht7",
@@ -11,7 +14,8 @@ class UserTableSeeder extends DatabaseSeeder {
 			]
 		];
 
-		foreach ($users as $user) {
+		foreach ($users as $user) 
+		{
 			User::create($user);
 		}
 	}

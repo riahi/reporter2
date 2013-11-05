@@ -2,6 +2,6 @@
 
 @section("footer")
     <footer>
-        <h1>Powered by Laravel</h1>
+        Designed by Shahein Tajmir
     </footer>
 @show
