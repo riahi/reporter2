@@ -62,14 +62,27 @@ Route::group(["before" => "auth"], function () {
 	Route::controller('worklist', 'WorklistController');
 
 	Route::any('/', 'UserController@profileAction');
+
+	//----------------------------------------------------------------------
+	// Admin routes
+	//----------------------------------------------------------------------
+	Route::group(['prefix' => 'admin',], function() {
+		
+		Route::get('upload', function() {
+			return View::make('admin.upload');
+		});
+
+		Route::post('upload', [
+			'as' => 'upload', 
+			'uses' => 'TemplateController@uploadTemplates'
+			]);
+	});
 });
 
 
-Route::post('compare', function() 
+Route::get('compare', function() 
 {
-	$data = Input::all();
-
-	return var_dump($data);
+	return View::make('admin.upload');
 });
 
 Route::get('first', function () 

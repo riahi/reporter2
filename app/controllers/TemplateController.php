@@ -97,4 +97,46 @@ class TemplateController extends \BaseController {
 		//
 	}
 
+	public function uploadTemplates()
+	{
+		// Get file, author, specialty, and level of training
+		$file = Input::file('template_export');
+		$fileContents = file_get_contents($file);
+
+		$author = Input::get('author');
+		$subspecialty = Input::get('subspecialty');
+		$authorTraining = Input::get('author_training');
+
+		// Splits apart file based on regex.  
+		// PHP regex requires / .. / on either side of pattern
+		// returns an array that drops all empty matches
+		$array = preg_split('/\$\$\$\r?\n/', $fileContents, -1, PREG_SPLIT_NO_EMPTY);
+		
+		// ************************************************
+		// Process and put into Database
+		// ************************************************
+		// loops through array and parses.
+		$title = '';
+		$template = '';
+
+		for($i = 0; $i < count($array); $i++) {
+			$temp = $array[$i];
+			
+			$t = new Template;
+
+			preg_match_all('/(.+)(\r?\n)((\W|\w)+)/', $temp, $matches, PREG_SET_ORDER);
+			$tempArray = $matches[0];
+			
+
+			$t->title = $tempArray[1];
+			$t->template = $tempArray[3];
+			$t->author = $author;
+			$t->subspecialty = $subspecialty;
+			$t->author_training = $authorTraining;
+			$t->save();
+		}
+
+		return var_dump(file_get_contents($file));
+	}
+
 }
