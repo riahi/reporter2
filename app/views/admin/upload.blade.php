@@ -13,7 +13,6 @@
     ]) }}
         {{ Form::label('template_export', 'File') }}
         {{ Form::file('template_export') }}
-        {{ Form::submit('Upload File') }}
         
         <p>
         {{ Form::text('author') }}
@@ -31,6 +30,8 @@
             'Resident' => 'Resident'), 'All') }}
         {{ Form::label('author_training', 'Template Level of Training') }}
         </p>
+
+        {{ Form::submit('Upload File') }}
     {{ Form::close() }}
 
         @if ($error = $errors->first("password"))

@@ -57,6 +57,17 @@ class UserController extends Controller {
 		Auth::logout();
 		return Redirect::route('user/login');
 	}
+
+    public function createUser() {
+        $u = new User;
+
+        $u->username = Input::get('username');
+        $u->password = Hash::make(Input::get('password'));
+        $u->email = Input::get('email');
+        $u->user_level = Input::get('user_level');
+        $u->save();
+        return $u->username ." created.";
+    }
 }
 
 ?>

@@ -68,6 +68,15 @@ Route::group(["before" => "auth"], function () {
 	//----------------------------------------------------------------------
 	Route::group(['prefix' => 'admin',], function() {
 		
+		Route::get('createuser', function() {
+			return View::make('admin.createUser');
+		});
+		
+		Route::post('createuser', [
+			'as' => 'createUser',
+			'uses' => 'UserController@createUser'
+			]);
+
 		Route::get('upload', function() {
 			return View::make('admin.upload');
 		});
